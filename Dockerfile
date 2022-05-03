@@ -17,7 +17,7 @@ RUN dart compile exe bin/server.dart -o bin/server
 FROM scratch
 COPY --from=build /runtime/ /
 COPY --from=build /app/bin/server /app/bin/
-COPY --from=build /app/data/ /app/data/
+# COPY --from=build /app/data/ /app/data/
 COPY --from=build /app/public/ /app/public/
 
 # Start server.
