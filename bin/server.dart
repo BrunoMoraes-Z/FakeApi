@@ -32,7 +32,7 @@ Future<HttpServer> startServer() async {
 
   // Create a Server
   var server = await app.listen(
-    8080,
+    int.parse(Platform.environment['PORT'] ?? '8080'),
     InternetAddress.anyIPv4,
   );
   server.autoCompress = true;
