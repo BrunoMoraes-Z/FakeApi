@@ -1,16 +1,17 @@
 import 'dart:io';
 
 import 'package:alfred/alfred.dart';
-// import 'package:shelf_hotreload/shelf_hotreload.dart';
+import 'package:shelf_hotreload/shelf_hotreload.dart';
 
+import 'shared/constants/constants.dart';
 import 'shared/route_mapper/route_mapper.dart';
 
 // start Commando with HotReload
 //
 // dart --enable-vm-service bin/server.dart
 void main() async {
-  // withHotreload(() async => startServer());
-  await startServer();
+  withHotreload(() async => startServer());
+  // await startServer();
 }
 
 Future<HttpServer> startServer() async {
@@ -32,7 +33,7 @@ Future<HttpServer> startServer() async {
 
   // Create a Server
   var server = await app.listen(
-    int.parse(Platform.environment['PORT'] ?? '8080'),
+    serverPort,
     InternetAddress.anyIPv4,
   );
   server.autoCompress = true;

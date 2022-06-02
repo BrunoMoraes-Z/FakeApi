@@ -45,6 +45,21 @@ void main() {
     }
   });
 
+  test('Validate Default Gen response - Method GET', () async {
+    var response = await http.get('$baseUrl/gen'.toUri());
+    Json body = json.decode(response.body);
+
+    expect(body, isNotEmpty);
+
+    var keys = ['name', 'cpf', 'rg', 'born', 'email', 'mother', 'father'];
+
+    expect(body.keys, containsAll(keys));
+    expect(body.keys.length, keys.length);
+    for (var element in body.keys) {
+      expect(body[element].toString().trim(), isNotEmpty);
+    }
+  });
+
   test('Validate Default Gen response with custom amount', () async {
     var amount = 10;
     var response = await http.post(

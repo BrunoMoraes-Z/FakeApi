@@ -1,12 +1,16 @@
+import 'dart:convert';
+
 import 'package:alfred/alfred.dart';
 import 'package:faker_dart/faker_dart.dart';
 import 'package:faker_dart/src/utils/locale_utils.dart';
 
+import '../../shared/constants/constants.dart';
 import '../../shared/route_mapper/route.dart';
 import 'controllers/company_controller.dart';
 import 'controllers/document_controller.dart';
 import 'controllers/name_controller.dart';
 import 'controllers/person_controller.dart';
+import 'package:http/http.dart' as http;
 
 class GenService extends Route {
   GenService({required Alfred server}) : super(server: server, path: 'gen');
@@ -27,6 +31,13 @@ class GenService extends Route {
       nameController,
       documentController,
     );
+
+    server.get($('/'), (req, res) async {
+      var response = await http.post(
+        Uri.parse('http://localhost:$serverPort/api/v1/gen'),
+      );
+      return json.decode(response.body)[0];
+    });
 
     server.post($('/'), (req, res) async {
       final body = fromJson(await req.body);
