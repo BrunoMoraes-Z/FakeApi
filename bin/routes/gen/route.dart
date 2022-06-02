@@ -34,7 +34,7 @@ class GenService extends Route {
 
     server.get($('/'), (req, res) async {
       var response = await http.post(
-        Uri.parse('http://localhost:$serverPort/api/v1/gen'),
+        Uri.parse('http://127.0.0.1:$serverPort/api/v1/gen'),
       );
       return json.decode(response.body)[0];
     });

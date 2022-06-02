@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:alfred/alfred.dart';
-// import 'package:shelf_hotreload/shelf_hotreload.dart';
+import 'package:shelf_hotreload/shelf_hotreload.dart';
 
 import 'shared/constants/constants.dart';
 import 'shared/route_mapper/route_mapper.dart';
@@ -10,8 +10,11 @@ import 'shared/route_mapper/route_mapper.dart';
 //
 // dart --enable-vm-service bin/server.dart
 void main() async {
-  // withHotreload(() async => startServer());
-  await startServer();
+  if (Platform.environment['SWAGGER_URL'] == null) {
+    withHotreload(() async => startServer());
+  } else {
+    await startServer();
+  }
 }
 
 Future<HttpServer> startServer() async {
