@@ -1,0 +1,12 @@
+# Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
+v: 0
+app_name: "Fake API"
+micros:
+  - name: faker
+    src: ./
+    engine: python3.9
+    primary: true
+    run: uvicorn src.main:app --no-server-header
+    dev: uvicorn src.main:app --no-server-header --port $PORT
+    public_routes:
+      - "*"
